@@ -22,21 +22,10 @@ const submitForm = () => {
 <template>
   <form class="container pt-5 pb-5" ref="mainForm">
     <u-input v-model="review.author" placeholder="Как вас зовут?" type="text" />
-    <u-input
-      v-model="review.text"
-      placeholder="Что понраивлось?"
-      type="textarea"
-    />
+    <u-input v-model="review.text" placeholder="Что понраивлось?" type="textarea" />
 
     <h4>Оценка</h4>
-    <u-radio
-      v-for="i in 5"
-      :key="i"
-      name="stars"
-      :val="i"
-      :label="i"
-      v-model="review.stars"
-    ></u-radio>
+    <u-radio v-for="i in 5" :key="i" name="stars" :val="i" :label="i" v-model="review.stars"></u-radio>
 
     <!-- <div class="star">
       <input
@@ -53,19 +42,9 @@ const submitForm = () => {
 
     <u-file v-model="review.photo" label="Photo" />
 
-    <u-radio
-      name="recomended"
-      :val="true"
-      :label="'Советую'"
-      v-model="review.isRecomended"
-    ></u-radio>
-    <u-radio
-      name="recomended"
-      :val="false"
-      :label="'Не советую'"
-      v-model="review.isRecomended"
-    ></u-radio>
-    
+    <u-radio name="recomended" :val="true" :label="'Советую'" v-model="review.isRecomended"></u-radio>
+    <u-radio name="recomended" :val="false" :label="'Не советую'" v-model="review.isRecomended"></u-radio>
+
     <!-- <div class="form-check">
       <input
         class="form-check-input"
