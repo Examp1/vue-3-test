@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 
 import App from './App.vue'
-// js
+
+import './assets/scss/main.sass'
 
 const app = createApp(App)
 
