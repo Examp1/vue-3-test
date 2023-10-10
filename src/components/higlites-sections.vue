@@ -1,5 +1,23 @@
 <script setup>
+import { computed } from 'vue';
+import { getTime } from '../utils'
+const { weatherInfo } = defineProps({
+	weatherInfo: {
+		type: [Object, null],
+		required: true
+	},
+})
 
+const timeZone = computed (() => {
+	return weatherInfo.timezone
+})
+const sunriseTime = computed(() => {
+	return getTime(weatherInfo?.sys.sunrise + timeZone.value)
+})
+
+const sunsetTime = computed(() => {
+	return getTime(weatherInfo?.sys.sunset + timeZone.value)
+}) 
 </script>
 <template>
 	<div class="section highlights">
@@ -17,7 +35,7 @@
 						<div class="card-justify">
 							<div class="info-main">
 								<div class="info-main-num">
-									3.6
+									{{ weatherInfo?.wind.speed }}
 								</div>
 								<div class="info-main-text">
 									m/s
@@ -25,7 +43,7 @@
 							</div>
 							<div class="info-main">
 								<div class="info-main-num">
-									350
+									{{ weatherInfo?.wind.deg }}
 								</div>
 								<div class="info-main-text">
 									deg
@@ -41,7 +59,7 @@
 					<div class="card-small-info">
 						<div class="card-small-data">
 							<div class="info-main-num">
-								8.4
+								{{ weatherInfo?.wind.gust }}
 							</div>
 							<div class="info-main-text">
 								m/s
@@ -51,8 +69,10 @@
 							<div class="card-small-pic card-small-pic--wind"></div>
 							<div class="card-small-text text-egorova">
 								Learn
-								<a href="https://www.windy.com/articles/weather-phenomena-what-s-the-difference-between-sustained-winds-and-wind-gusts-10390?satellite,7.787,115.115,5"
-									target="_blank">more</a>
+								<a
+									href="https://www.windy.com/articles/weather-phenomena-what-s-the-difference-between-sustained-winds-and-wind-gusts-10390?satellite,7.787,115.115,5"
+									target="_blank"
+								>more</a>
 								about gusts
 							</div>
 						</div>
@@ -69,7 +89,7 @@
 						<div class="card-centered">
 							<div class="info-main">
 								<div class="info-main-num">
-									765
+									{{ weatherInfo?.main.pressure }}
 								</div>
 								<div class="info-main-text">
 									mm
@@ -85,7 +105,7 @@
 					<div class="card-small-info">
 						<div class="card-small-data">
 							<div class="info-main-num">
-								21
+								{{ Math.round(weatherInfo?.main.feels_like) }}
 							</div>
 							<div class="info-main-text">
 								°C
@@ -114,7 +134,7 @@
 									Sunrise
 								</div>
 								<div class="state-time">
-									07:31:42
+									{{ sunriseTime }}
 								</div>
 							</div>
 							<div class="state">
@@ -123,7 +143,7 @@
 									Sunset
 								</div>
 								<div class="state-time">
-									18:34:19
+									{{ sunsetTime }}
 								</div>
 							</div>
 						</div>
@@ -136,7 +156,7 @@
 					<div class="card-small-info">
 						<div class="card-small-data">
 							<div class="info-main-num">
-								80
+								{{ weatherInfo?.clouds.all }}
 							</div>
 							<div class="info-main-text">
 								%
