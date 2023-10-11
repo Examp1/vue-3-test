@@ -9,7 +9,7 @@ const { weatherInfo } = defineProps({
 })
 
 const timeZone = computed (() => {
-	return weatherInfo.timezone
+	return weatherInfo?.timezone
 })
 const sunriseTime = computed(() => {
 	return getTime(weatherInfo?.sys.sunrise + timeZone.value)

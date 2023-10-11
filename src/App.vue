@@ -5,18 +5,21 @@ import HiglitesSections from './components/higlites-sections.vue';
 import CoordsSection from './components/coords-section.vue';
 import { ref, onMounted } from 'vue';
 import HumiditySection from './components/humidity-section.vue';
-// ?q={city name}&appid={API key}
+import { useFetch } from '@vueuse/core'
 
 const city = ref('Paris')
 const weatherInfo = ref(null)
 
-const getWeather = () => {
-  fetch(`${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`)
-    .then((response) => {
-      return response.json()
-    }).then((data) => {
-      weatherInfo.value = data
-    })
+const getWeather = async () => {
+
+  const { isFetching, error, data } = await useFetch(`${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`).json()
+  // fetch(`${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`)
+  //   .then((response) => {
+  //     return response.json()
+  //   }).then((data) => {
+  //     weatherInfo.value = data
+  //   })
+  weatherInfo.value = data.value
 }
 
 onMounted(() => {
